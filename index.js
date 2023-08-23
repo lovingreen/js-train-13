@@ -6,6 +6,20 @@
  * Повертає - json дані в яких всі числові значення збільшено на 1.
  */
 function complexConvert(data) {
+
+  let obj = {};
+
+  let ObjFromJson = JSON.parse(data);
+
+  for ( let key in ObjFromJson) {
+    if (typeof ObjFromJson[key] === 'number') {
+      obj[key] = ++ObjFromJson[key];
+    } else {
+      obj[key] = ObjFromJson[key];
+    }
+  }
+
+  return JSON.stringify(obj);
   // Створюємо новий порожній об'єкт для збереження результату.
   // Перетворюємо json дані в об'єкт та отримуємо всі ключі об'єкта.
   // Обходимо всі ключі та перевіряємо значення.
@@ -45,6 +59,15 @@ console.log(complexConvert(JSON.stringify(data)));
     params: Параметри URL у вигляді масиву пар [ключ, значення].
  */
 function manipulateUrl(url) {
+  let newUrl = new URL (url);
+  newUrl.protocol = 'https';
+  newUrl.host = 'newhost.com';
+  newUrl.searchParams.append('newParam', 'newValue');
+  if (newUrl.searchParams.has('oldParam')) {
+    newUrl.searchParams.delete('oldParam');
+  }
+
+  return newUrl;
   // Створюємо новий об'єкт URL.
   // Змінюємо протокол URL на https.
   // Змінюємо хост URL на 'newhost.com'.
